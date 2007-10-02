@@ -38,6 +38,18 @@ int main(int argc, char**argv)
       exit(1);
     }
   
-  key_press(dpy, 'D');
+
+
+  KeySym sym = XStringToKeysym("a");
+  KeySym lower;
+  KeySym upper;
+  XConvertCase(sym, &lower, &upper);
+  KeyCode code = XKeysymToKeycode(dpy, upper);
+  key_press(dpy, code);
+
+
+  code = XKeysymToKeycode(dpy, lower);
+  key_press(dpy, code);
+
   return 0;
 }
