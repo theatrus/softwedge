@@ -204,6 +204,8 @@ int main(int argc, char**argv)
   }
 
 
+  // We're done now
+  close(serialPort);
 
 
 
