@@ -6,3 +6,6 @@ softwedge: sw/softwedge.c sw/softwedge.h
 
 install:
 	install softwedge /usr/local/bin/
+
+clean:
+	rm -f softwedge
