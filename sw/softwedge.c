@@ -130,11 +130,16 @@ int main(int argc, char**argv)
   int xtest_minor_version = 0;
   int dummy;
   int c;
+  int dontDaemon = 0;
   char *sport = NULL;
 
-  while ((c = getopt (argc, argv, "vc:")) != -1)
+  while ((c = getopt (argc, argv, "fvc:")) != -1)
     switch (c)
       {
+      case 'f':
+	fprintf(stderr, "softwedge not daemonizing...\n");
+	dontDaemon = 1;
+	break;
       case 'v':
 	fprintf(stderr, "softwedge v %s: The serial softwedge X11 helper. ", SOFTWEDGE_VERSION);
 	fprintf(stderr, "(c) 2007 Yann Ramin <atrus@stackworks.net>\n(Exiting...)\n");
@@ -184,14 +189,15 @@ int main(int argc, char**argv)
 
 
 
-
-  if(fork()) {
-    return 0;
+  if (!dontDaemon) {
+    if(fork()) {
+      return 0;
+    }
+    
+    close(0);
+    close(1);
+    close(2);
   }
-
-  close(0);
-  close(1);
-  close(2);
 
 
   char readbuf[2];

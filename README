@@ -9,7 +9,7 @@ scanner) and re-issues the data as X11 key press events.
 softwedge was designed to allow ordinary applications 
 to accept data from a Bluetooth barcode scanner (for testing,
 the author used a Metrologic FocusBT, though any *decoded* serial
- or Bluetooth barcode scanner should work). 
+or Bluetooth barcode scanner should work). 
 Un-decoded scanners won't work - softwedge expects input near 
 the US-ASCII character-set, though not all control codes work at this time.
 
@@ -29,6 +29,11 @@ Options:
 
 -c:
 	Sets serial port 
+-f:
+	Run in the foreground - don't fork
+-v:
+	See version information
+
 
 Limitations:
 ------------
