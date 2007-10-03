@@ -33,9 +33,10 @@
 
 #include "softwedge.h"
 
-int serialPort;
+static int serialPort;
+static Display *dpy;
 
-void xtest_key_press(Display *dpy, unsigned char letter) {
+static void xtest_key_press(unsigned char letter) {
   unsigned int shiftcode = XKeysymToKeycode(dpy, XStringToKeysym("Shift_L"));
   int upper = 0;
   int skip_lookup = 0;
@@ -102,11 +103,11 @@ void xtest_key_press(Display *dpy, unsigned char letter) {
 
 }
 
-void press_keys(Display *dpy, char* string) {
+static void press_keys(char* string) {
   int len = strlen(string);
   int i = 0;
   for (i = 0; i < len; i++) {
-    xtest_key_press(dpy, string[i]);
+    xtest_key_press(string[i]);
   }
   XFlush(dpy);
 }
@@ -122,48 +123,11 @@ int sw_open_serial(const char *port) {
   return 0;
 }
 
+void sw_init() {
 
-int main(int argc, char**argv)
-{
-  Display    *dpy;            /* X server connection */
   int xtest_major_version = 0;
   int xtest_minor_version = 0;
   int dummy;
-  int c;
-  int dontDaemon = 0;
-  char *sport = NULL;
-
-  while ((c = getopt (argc, argv, "fvc:")) != -1)
-    switch (c)
-      {
-      case 'f':
-	fprintf(stderr, "softwedge not daemonizing...\n");
-	dontDaemon = 1;
-	break;
-      case 'v':
-	fprintf(stderr, "softwedge v %s: The serial softwedge X11 helper. ", SOFTWEDGE_VERSION);
-	fprintf(stderr, "(c) 2007 Yann Ramin <atrus@stackworks.net>\n(Exiting...)\n");
-	exit(0);
-      case 'c':
-	sport = optarg;
-	break;
-      case '?':
-	if (optopt == 'c')
-	  fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-	else if (isprint (optopt))
-	  fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-	else
-	  fprintf (stderr,
-		   "Unknown option character `\\x%x'.\n",
-		   optopt);
-	return 1;
-      default:
-	abort ();
-      }
-
-  if (sport == NULL)
-    sport = DEFAULT_SERIAL;
-
 
   
   /*
@@ -171,7 +135,7 @@ int main(int argc, char**argv)
    * the X server.  See Section 2.1.
    */
   if ((dpy = XOpenDisplay(NULL)) == NULL) {
-    fprintf(stderr, "%s: can't open %s\en", argv[0], XDisplayName(NULL));
+    fprintf(stderr, "%s: can't open %s\en", "softwedge", XDisplayName(NULL));
     exit(1);
   }
   
@@ -183,29 +147,18 @@ int main(int argc, char**argv)
       fprintf(stderr,"XTEST extension not supported. Can't continue\n");
       exit(1);
     }
-  
 
-  sw_open_serial(sport);
-
+}
 
 
-  if (!dontDaemon) {
-    if(fork()) {
-      return 0;
-    }
-    
-    close(0);
-    close(1);
-    close(2);
-  }
-
+void sw_read_loop() {
 
   char readbuf[2];
   readbuf[1] = 0;
 
   while(read(serialPort, readbuf, 1) > 0) {
 
-    press_keys(dpy, readbuf);
+    press_keys(readbuf);
 
   }
 
@@ -215,6 +168,6 @@ int main(int argc, char**argv)
 
 
 
-  return 0;
-}
 
+
+}
