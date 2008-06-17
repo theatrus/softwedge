@@ -1,0 +1,15 @@
+Source: softwedge
+Section: unknown
+Priority: extra
+Maintainer: Yann Ramin <atrus@stackworks.net>
+Build-Depends: debhelper (>= 5), libxtst-dev
+Standards-Version: 3.7.2
+
+Package: softwedge
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Serial barcode to X11 keypress event utility
+ softwedge is a small Linux utility which forwards
+ data from a serial port (such as from a tty, or a barcode
+ scanner) and re-issues the data as X11 key press events.
+
