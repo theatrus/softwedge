@@ -25,6 +25,7 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/XTest.h>
 #include <X11/keysymdef.h>
+#include <X11/keysym.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
