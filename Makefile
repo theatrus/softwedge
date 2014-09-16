@@ -10,7 +10,7 @@ libsoftwedge.a: sw/softwedge.c sw/softwedge.h
 	ar cr sw/libsoftwedge.a sw/softwedge.o
 
 softwedge: sw/main.c sw/softwedge.h
-	$(CC) -Wall -Isw -O2 -Lsw -o softwedge sw/main.c -lX11 -lXtst -lsoftwedge
+	$(CC) -Wall -Isw -O2 -Lsw -o softwedge sw/main.c -lsoftwedge -lX11 -lXtst
 
 install:
 	install softwedge $(DESTDIR)
