@@ -1,2 +1,6 @@
 language: c
 script: make
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y xorg-dev libxtst-dev 
