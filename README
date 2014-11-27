@@ -2,16 +2,21 @@ softwedge: A serial software keyboard wedge for *nix X11
 	   (c) 2007 Yann Ramin <atrus@stackworks.net>
 ---------------------------------------------------------
 
-softwedge is a small Linux utility which forwards
-data from a serial port (such as from a tty, or a barcode
-scanner) and re-issues the data as X11 key press events.
+softwedge is a small Linux utility which forwards data from a serial
+port (such as from a tty, or a barcode scanner) and re-issues the data
+as X11 key press events.
 
-softwedge was designed to allow ordinary applications 
-to accept data from a Bluetooth barcode scanner (for testing,
-the author used a Metrologic FocusBT, though any *decoded* serial
-or Bluetooth barcode scanner should work). 
-Un-decoded scanners won't work - softwedge expects input near 
-the US-ASCII character-set, though not all control codes work at this time.
+softwedge was designed to allow ordinary applications to accept data
+from a Bluetooth barcode scanner (for testing, the author used a
+Metrologic FocusBT, though any *decoded* serial or Bluetooth barcode
+scanner should work).  Un-decoded scanners won't work - softwedge
+expects input near the US-ASCII character-set, though not all control
+codes work at this time.
+
+Build status:
+
+https://travis-ci.org/theatrus/softwedge.svg?branch=master
+
 
 Quick start:
 ------------
